@@ -37,6 +37,12 @@ public:
 
 	int getLotNum() const
 		{ return lotNum; }
+
+	void Display()
+    {
+        cout << "\tSerial Number: " << serialNum << endl;
+		cout << "\tManufacture Date: " << manufactDate << endl;
+    }
 };
 
 #endif
