@@ -16,7 +16,8 @@ class InvQue
     public:
         InvQue()
         {
-            queueSize = -1;
+            itemArray = nullptr;
+            queueSize = 0;
             front = -1;
             rear = -1;
             numItems = 0;
@@ -93,7 +94,7 @@ class InvQue
             rear = queueSize - 1;
             numItems = 0;
         }
-        void resize(int QueueSize)
+        void resize(int QueueSize) 
         {
             delete[] itemArray;
 
@@ -103,6 +104,14 @@ class InvQue
             rear = -1;
             numItems = 0;
         }
+        int GetNumItems()
+        { return numItems; }
+        InventoryItem GetItem(int index)
+        {
+            return itemArray[(index + front + 1) % queueSize];
+        }
+
+
 };
 
 #endif

@@ -25,7 +25,7 @@ int main()
 	
 	if(listChoice == 1)
 	{
-		cout << "How long would you like your queue to be?";
+		cout << "How long would you like your queue to be?\n";
 		cin >> queueSize;
 		queue.resize(queueSize);
 	}
@@ -36,14 +36,15 @@ int main()
 		cout << "\n------ Inventory Menu --------\n\n";
 		cout << "1.  Enter a part into the inventory.\n";
 		cout << "2.  Take a part from the inventory.\n";
-		cout << "3.  Quit.\n\n";
-		cout << "Please make a choice (1, 2, or 3):  ";
+		cout << "3.  Display.\n";
+		cout << "4.  Quit.\n\n";
+		cout << "Please make a choice (1, 2, 3, or 4):  ";
 		cin >> choice;
 
 		// Validate choice
-		while (choice < 1 || choice > 3)
+		while (choice < 1 || choice > 4)
 		{
-			cout << "Please enter 1, 2, or 3: ";
+			cout << "Please enter 1, 2, 3, or 4: ";
 			cin >> choice;
 		}
 		if (listChoice == 1) //user picked queue
@@ -51,7 +52,7 @@ int main()
 			switch(choice)
 			{
 				case 1:
-				{
+
 					cout << "\nYou have chosen to add an item to the inventory queue.\n\n";
 					if (queue.isFull())
 					{
@@ -69,9 +70,7 @@ int main()
 						queue.enqueue(item);
 					}
 					break;
-				}
 				case 2:
-				{
 					cout << "\n You have chosen to remove an item from the inventory queue.\n\n";
 					if (queue.isEmpty())
 						cout << "Nothing to remove.\n";
@@ -79,15 +78,32 @@ int main()
 					{
 						queue.dequeue(item);
 						cout << "\nThe part you removed was:\n";
-						cout << "\tSerial number: " << item.getSerialNum() << endl;
-						cout << "\tManufacture date: " << item.getManufactDate() << endl;
+						item.Display();
+						//cout << "\tSerial number: " << item.getSerialNum() << endl;
+						//cout << "\tManufacture date: " << item.getManufactDate() << endl;
 						cout << endl;
 					}
 					break;
 				case 3:
+					cout << "Displaying...\n";
+					if (queue.isEmpty())
+						cout << "The queue is empty.\n";
+					else
+						{
+							for (int i = 0; i < queue.GetNumItems(); i++)
+							{
+								if (queue.GetItem(i).getSerialNum() != 0) //Item is defined
+								{
+									cout << "Item " << i + 1 << ": \n";
+									queue.GetItem(i).Display();
+								}
+							}
+						}
+					break;
+
+				case 4:
 					cout << "Goodbye!";
 					break;
-				}
 			}
 		}
 		else //user picked stack
@@ -118,13 +134,15 @@ int main()
 					{
 						stack.pop(item);
 						cout << "\nThe part you removed was:\n";
-						cout << "\tSerial number: " << item.getSerialNum() << endl;
-						cout << "\tManufacture date: " << item.getManufactDate() << endl;
+						item.Display();
+						//cout << "\tSerial number: " << item.getSerialNum() << endl;
+						//cout << "\tManufacture date: " << item.getManufactDate() << endl;
 						cout << endl;
 					}
 					break;
-		
 				case 3:
+					break;
+				case 4:
 					cout << "\nGoodbye!\n\n";
 					break;
 				}
@@ -133,7 +151,7 @@ int main()
 		}
 
 
-	} while (choice  != 3);
+	} while (choice  != 4);
 
 	return 0;
 }
