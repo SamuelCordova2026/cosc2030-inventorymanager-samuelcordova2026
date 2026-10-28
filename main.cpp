@@ -112,7 +112,6 @@ int main()
 			switch(choice)
 			{
 				case 1:
-				{
 					
 					// Enter a part into inventory.
 					cout << "\nYou have chosen to add an item to the inventory bin.\n\n";
@@ -141,11 +140,23 @@ int main()
 					}
 					break;
 				case 3:
+					cout << "Displaying...\n";
+					if (stack.isEmpty())
+					{
+						cout << "The stack is empty.\n";
+					}
+					else
+					{
+						for (int i = 0; i < stack.GetCurrSize(); i++)
+						{
+							cout << "Item " << i + 1 << ": \n";
+							stack.GetItem(i).Display();
+						}
+					}
 					break;
 				case 4:
 					cout << "\nGoodbye!\n\n";
 					break;
-				}
 	
 			}
 		}

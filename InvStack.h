@@ -11,6 +11,7 @@ class InvStack
 		};
 
 		StackNode *top;
+		int currSize = 0;
 
 	public:
 		InvStack()
@@ -18,6 +19,8 @@ class InvStack
 		void push(T);
 		void pop(T &);
 		bool isEmpty();
+		int GetCurrSize();
+		T GetItem(int);
 };
 
 //*********************************************************
@@ -46,6 +49,8 @@ void InvStack<T>::push(T num)
 		newNode->next = top;
 		top = newNode;
 	}
+
+	currSize++;
 }
 
 //*********************************************************
@@ -69,6 +74,7 @@ void InvStack<T>::pop(T &num)
 		temp = top->next;
 		delete top;
 		top = temp;
+		currSize--;
 	}
 }
  
@@ -88,4 +94,23 @@ bool InvStack<T>::isEmpty()
 	}
 		
 	return status;
+}
+
+template <class T>
+T InvStack<T>::GetItem(int index)
+{
+	StackNode *currNode = top;
+
+	for (int i = 0; i < index; i++)
+	{
+		currNode = currNode->next;
+	}
+
+	return currNode->value;
+}
+
+template <class T>
+int InvStack<T>::GetCurrSize()
+{
+	return currSize;
 }
