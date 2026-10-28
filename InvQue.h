@@ -1,5 +1,5 @@
-#ifndef INVQUE.H
-#define INVQUE.H
+#ifndef INVQUE_H
+#define INVQUE_H
 #include <iostream>
 #include "InvItem.h"
 
@@ -14,6 +14,14 @@ class InvQue
         int rear; //position of last item added
         int numItems;
     public:
+        InvQue()
+        {
+            queueSize = -1;
+            front = -1;
+            rear = -1;
+            numItems = 0;
+        }
+
         InvQue(int QueueSize)
         {
             itemArray = new InventoryItem[QueueSize];
@@ -83,6 +91,16 @@ class InvQue
         {
             front = queueSize - 1;
             rear = queueSize - 1;
+            numItems = 0;
+        }
+        void resize(int QueueSize)
+        {
+            delete[] itemArray;
+
+            itemArray = new InventoryItem[QueueSize];
+            queueSize = QueueSize;
+            front = -1;
+            rear = -1;
             numItems = 0;
         }
 };
