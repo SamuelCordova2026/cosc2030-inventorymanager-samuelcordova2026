@@ -50,7 +50,12 @@ public:
 template <class T>
 void InvTree<T>::insert(TreeNode *&nodePtr, TreeNode *&newNode)
 {
-   //TODO
+   if (nodePtr == nullptr)
+      nodePtr = newNode;
+   else if (newNode->value < nodePtr->value)
+      insert(notePtr->left, newNode)
+   else
+      insert(nodePtr->right, newNode);
 }
 
 //**********************************************************
@@ -60,7 +65,13 @@ void InvTree<T>::insert(TreeNode *&nodePtr, TreeNode *&newNode)
 template <class T>
 void InvTree<T>::insertNode(T item)
 {
-   //TODO
+   TreeNode *newNode = nullptr;
+
+   newNode = new TreeNode;
+   newNode->value = item;
+   newNode->left = newNode->right = nullptr;
+
+   insert(root, newNode);
 }
 
 //***************************************************
@@ -70,7 +81,14 @@ void InvTree<T>::insertNode(T item)
 template <class T>
 void InvTree<T>::destroySubTree(TreeNode *nodePtr)
 {
-   //TODO
+   if (nodePtr)
+   {
+      if (nodePtr->left)
+         destroySubTree(nodePtr->left);
+      if (nodePtr->right)
+         destroySubTree(nodePtr->right)
+         delete nodePtr;
+   }
 }
    
 //***************************************************
@@ -81,7 +99,16 @@ void InvTree<T>::destroySubTree(TreeNode *nodePtr)
 template <class T>
 bool InvTree<T>::searchNode(T item)
 {
-   //TODO
+   TreeNode *nodePtr = root;
+
+   while (nodePtr)
+   {
+      if (nodePtr->value == item)
+         return true;
+      else if (num < nodePtr->value)
+         nodePtr = nodePtr->left;
+      else  nodePtr = nodePtr->right;
+   }
    return false; // update this with the appropriate return value
 }
 
@@ -118,7 +145,32 @@ void InvTree<T>::deleteNode(T item, TreeNode *&nodePtr)
 template <class T>
 void InvTree<T>::makeDeletion(TreeNode *&nodePtr)
 {
-   //TODO
+   TreeNode *tempNodePtr = nullptr;
+
+   if (nodePtr == nullptr)
+      cout << "Cannot delete empty node.\n"
+   else if (nodePtr->right == nullptr)
+   {
+      tempNodePtr = nodePtr;
+      nodeptr = nodePtr->left;
+      delete tempNodePtr;
+   }
+   else if (nodePtr->left == nullptr)
+   {
+      tempNodePtr = nodePtr;
+      nodePtr = nodePtr->right;
+      delete tempNodePtr;
+   }
+   else
+   {
+      tempNodePtr = nodePtr->right;
+      while (tempNodePtr->left)
+         tempNodePtr = tempNodePtr->left;
+      tempNodePtr->left = nodePtr->left;
+      tempNodePtr = nodePtr;
+      nodePtr = nodePtr->right;
+      delete tempNodePtr;
+   }
 }
 
 //****************************************************************
@@ -128,6 +180,11 @@ void InvTree<T>::makeDeletion(TreeNode *&nodePtr)
 template <class T>
 void InvTree<T>::displayInOrder(TreeNode *nodePtr) const
 {
-   //TODO
+   if (nodePtr)
+   {
+      displayInOrder(nodePtr->left);
+      nodePtr->value.Display();
+      displayInOrder(nodePtr->right);
+   }
 }
 #endif

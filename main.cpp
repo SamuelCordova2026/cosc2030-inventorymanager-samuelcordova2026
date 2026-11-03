@@ -18,9 +18,10 @@ int main()
 	long serial;					// Serial number
 	string mDate;					// Manufacture date
 
-	cout << "\n Would you like to store your items in a queue or a stack? \n";
+	cout << "\n Would you like to store your items in a queue, stack, or tree? \n";
 	cout << "1. Queue\n";
 	cout << "2. Stack\n";
+	cout << "3. tree\n";
 	cin >> listChoice;
 	
 	if(listChoice == 1)
@@ -106,7 +107,7 @@ int main()
 					break;
 			}
 		}
-		else //user picked stack
+		else if (listChoice == 2) //user picked stack
 		{
 			// Act on the user's choice.
 			switch(choice)
@@ -158,6 +159,18 @@ int main()
 					cout << "\nGoodbye!\n\n";
 					break;
 	
+			}
+		}
+		else
+		{
+			switch(choice)
+			{
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					cout << "\nGoodbye!\n\n";
+					break;
 			}
 		}
 
