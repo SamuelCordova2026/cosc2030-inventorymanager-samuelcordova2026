@@ -35,6 +35,12 @@ public:
 	string getManufactDate()
 		{ return manufactDate; }
 
+	void Display()
+    {
+        cout << "\tSerial Number: " << serialNum << endl;
+		cout << "\tManufacture Date: " << manufactDate << endl;
+    }
+
 	int getLotNum() const
 		{ return lotNum; }
 
