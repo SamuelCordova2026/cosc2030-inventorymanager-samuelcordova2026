@@ -36,10 +36,18 @@ public:
    // Binary tree operations
    void insertNode(T);
    bool searchNode(T);
+   T GetItem(T);
    void remove(T);
    
    void displayInOrder() const
       {  displayInOrder(root); }
+   bool isEmpty()
+   {
+      if (root == nullptr)
+         return true;
+      else
+         return false;
+   }
 };
 
 //*************************************************************
@@ -53,7 +61,7 @@ void InvTree<T>::insert(TreeNode *&nodePtr, TreeNode *&newNode)
    if (nodePtr == nullptr)
       nodePtr = newNode;
    else if (newNode->value < nodePtr->value)
-      insert(notePtr->left, newNode)
+      insert(nodePtr->left, newNode);
    else
       insert(nodePtr->right, newNode);
 }
@@ -86,7 +94,7 @@ void InvTree<T>::destroySubTree(TreeNode *nodePtr)
       if (nodePtr->left)
          destroySubTree(nodePtr->left);
       if (nodePtr->right)
-         destroySubTree(nodePtr->right)
+         destroySubTree(nodePtr->right);
          delete nodePtr;
    }
 }
@@ -105,11 +113,27 @@ bool InvTree<T>::searchNode(T item)
    {
       if (nodePtr->value == item)
          return true;
-      else if (num < nodePtr->value)
+      else if (item < nodePtr->value)
          nodePtr = nodePtr->left;
       else  nodePtr = nodePtr->right;
    }
    return false; // update this with the appropriate return value
+}
+
+template <class T>
+T InvTree<T>::GetItem(T item)
+{
+   TreeNode *nodePtr = root;
+
+   while (nodePtr)
+   {
+      if (nodePtr->value == item)
+         return nodePtr->value;
+      else if (item < nodePtr->value)
+         nodePtr = nodePtr->left;
+      else  nodePtr = nodePtr->right;
+   }
+   return T(); //Returns default item if item not found
 }
 
 //**********************************************
@@ -148,11 +172,11 @@ void InvTree<T>::makeDeletion(TreeNode *&nodePtr)
    TreeNode *tempNodePtr = nullptr;
 
    if (nodePtr == nullptr)
-      cout << "Cannot delete empty node.\n"
+      cout << "Cannot delete empty node.\n";
    else if (nodePtr->right == nullptr)
    {
       tempNodePtr = nodePtr;
-      nodeptr = nodePtr->left;
+      nodePtr = nodePtr->left;
       delete tempNodePtr;
    }
    else if (nodePtr->left == nullptr)

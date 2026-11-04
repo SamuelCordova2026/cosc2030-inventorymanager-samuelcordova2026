@@ -5,12 +5,14 @@
 #include "InvItem.h"
 #include "InvStack.h"
 #include "InvQue.h"
+#include "InvTree.h"
 using namespace std;
 
 int main()
 {
 	InvStack<InventoryItem> stack;	// create stack
 	InvQue queue;
+	InvTree<InventoryItem> tree;
 	InventoryItem item;				// create inventory item object
 	int listChoice;
 	int queueSize;
@@ -161,13 +163,45 @@ int main()
 	
 			}
 		}
-		else
+		else //User picked tree
 		{
 			switch(choice)
 			{
 				case 1:
+					cout << "\nYou have chosen to add an item to the inventory tree.\n\n";
+					cout << "Enter the item's serial number: ";
+					cin >> serial;
+					item.setSerialNum(serial);
+					cout << "Enter the item's manufacture date: ";
+					cin >> mDate;
+					item.setManufactDate(mDate);
+					tree.insertNode(item);
+					break;
 				case 2:
+					cout << "\nYou have chosen to remove an item from the inventory bin.\n\n";
+						if (tree.isEmpty())
+							cout << "No parts to remove.\n";
+						else
+						{
+							cout << "Enter the serial number of the item you want to remove: \n";
+							cin >> serial;
+							item.setSerialNum(serial); //creates an item with the same serial to search tree for item
+							item = tree.GetItem(item);
+							cout << "\nThe part you removed was:\n";
+							tree.remove(item);
+							item.Display();
+							//cout << "\tSerial number: " << item.getSerialNum() << endl;
+							//cout << "\tManufacture date: " << item.getManufactDate() << endl;
+							cout << endl;
+						}
+						break;
 				case 3:
+						cout << "Displaying...\n";
+						if (tree.isEmpty())
+							cout << "The tree is empty.\n";
+						else
+							tree.displayInOrder();
+						break;
 				case 4:
 					cout << "\nGoodbye!\n\n";
 					break;

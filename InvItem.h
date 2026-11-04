@@ -39,6 +39,7 @@ public:
     {
         cout << "\tSerial Number: " << serialNum << endl;
 		cout << "\tManufacture Date: " << manufactDate << endl;
+		cout << endl;
     }
 
 	int getLotNum() const
